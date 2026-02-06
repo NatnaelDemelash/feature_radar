@@ -1,10 +1,6 @@
 "use client";
 
-import { useState } from "react";
-
-export default function AddFeatureModal() {
-  const [isOpen, setIsOpen] = useState(true);
-
+export default function AddFeatureModal({ isOpenModal, closeAddFeatureModal }) {
   // const openModal = () => setIsOpen(true);
   // const closeModal = () => setIsOpen(false);
   // const handleSubmit = (e) => {
@@ -18,7 +14,7 @@ export default function AddFeatureModal() {
       {/* Add Feature Button */}
 
       {/* Modal */}
-      {isOpen && (
+      {isOpenModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           {/* Overlay */}
           <div className="absolute inset-0 bg-black/40" />
@@ -92,6 +88,7 @@ export default function AddFeatureModal() {
                 <button
                   type="button"
                   className="px-4 py-2 rounded-md border hover:bg-gray-100 transition"
+                  onClick={closeAddFeatureModal}
                 >
                   Cancel
                 </button>
