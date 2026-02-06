@@ -1,18 +1,35 @@
 "use client";
 
-export default function AddFeatureModal({ isOpenModal, closeAddFeatureModal }) {
-  // const openModal = () => setIsOpen(true);
-  // const closeModal = () => setIsOpen(false);
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // You can hook API here later
-  //   closeModal();
-  // };
+import { useState } from "react";
+
+export default function AddFeatureModal({
+  isOpenModal,
+  closeAddFeatureModal,
+  addFeatures,
+}) {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+
+  // const [feature, setFeature] = ({
+  //   title, description, category
+  // })
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    const newFeature = {
+      id: Date.now(),
+      title,
+      description,
+      category,
+    };
+
+    addFeatures(newFeature);
+  };
 
   return (
     <>
-      {/* Add Feature Button */}
-
       {/* Modal */}
       {isOpenModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -31,7 +48,7 @@ export default function AddFeatureModal({ isOpenModal, closeAddFeatureModal }) {
             </p>
 
             {/* Form */}
-            <form className="space-y-4">
+            <form className="space-y-4" onSubmit={handleFormSubmit}>
               <div>
                 <label
                   className="block text-sm font-medium mb-1"
@@ -42,6 +59,8 @@ export default function AddFeatureModal({ isOpenModal, closeAddFeatureModal }) {
                 <input
                   id="title"
                   name="title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
                   placeholder="Dark mode toggle"
                   className="w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none"
                 />
@@ -57,6 +76,8 @@ export default function AddFeatureModal({ isOpenModal, closeAddFeatureModal }) {
                 <textarea
                   id="description"
                   name="description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
                   placeholder="Explain why this feature is important..."
                   rows={4}
                   className="w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none"
@@ -73,6 +94,8 @@ export default function AddFeatureModal({ isOpenModal, closeAddFeatureModal }) {
                 <select
                   id="category"
                   name="category"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
                   className="w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none"
                 >
                   <option value="">Select category</option>
