@@ -26,6 +26,9 @@ export default function AddFeatureModal({
     };
 
     addFeatures(newFeature);
+    setTitle("");
+    setDescription("");
+    setCategory("");
   };
 
   return (
