@@ -7,7 +7,7 @@ export default function FeatureCard({ feature, handleCountVotes, hasVoted }) {
       <div className="p-6">
         <div className="flex items-start gap-4">
           {/* Vote Button */}
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <button
               className={`flex flex-col items-center px-3 py-2 border rounded-lg transition-colors group/vote ${
                 hasVoted

@@ -10,6 +10,8 @@ export default function Home() {
   const [features, setFeatures] = useState([]);
   const [userVotes, setUserVotes] = useState(new Set());
 
+  const sortedFeatures = features.sort((a, b) => b.votes - a.votes);
+
   const addFeatures = (featureData) => {
     setFeatures([...features, featureData]);
     closeAddFeatureModal();
@@ -53,7 +55,7 @@ export default function Home() {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Empty State */}
-        {features.length === 0 && (
+        {sortedFeatures.length === 0 && (
           <div className="text-center py-16">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
               <svg

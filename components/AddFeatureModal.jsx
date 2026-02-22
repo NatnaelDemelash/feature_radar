@@ -1,19 +1,15 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 
 export default function AddFeatureModal({
   isOpenModal,
   closeAddFeatureModal,
   addFeatures,
 }) {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-
-  // const [feature, setFeature] = ({
-  //   title, description, category
-  // })
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('');
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -26,9 +22,9 @@ export default function AddFeatureModal({
     };
 
     addFeatures(newFeature);
-    setTitle("");
-    setDescription("");
-    setCategory("");
+    setTitle('');
+    setDescription('');
+    setCategory('');
   };
 
   return (
@@ -65,6 +61,7 @@ export default function AddFeatureModal({
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="Dark mode toggle"
+                  required
                   className="w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none"
                 />
               </div>
@@ -83,6 +80,7 @@ export default function AddFeatureModal({
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Explain why this feature is important..."
                   rows={4}
+                  required
                   className="w-full rounded-md border px-3 py-2 focus:ring-2 focus:ring-indigo-500 outline-none"
                 />
               </div>
