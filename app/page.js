@@ -1,15 +1,14 @@
-"use client";
+'use client';
 
-import AddFeatureModal from "@/components/AddFeatureModal";
-import FeatureCard from "@/components/FeatureCard";
-import { useState } from "react";
-import NavBar from "./components/Navbar";
+import AddFeatureModal from '@/components/AddFeatureModal';
+import FeatureCard from '@/components/FeatureCard';
+import { useState } from 'react';
+import NavBar from './components/Navbar';
 
 export default function Home() {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [features, setFeatures] = useState([]);
-
-  console.log("Current features:", features);
+  const [userVotes, setUserVotes] = useState(new Set());
 
   const addFeatures = (featureData) => {
     setFeatures([...features, featureData]);
@@ -22,6 +21,30 @@ export default function Home() {
 
   const closeAddFeatureModal = () => {
     setIsOpenModal(false);
+  };
+
+  const handleCountVotes = (featureId) => {
+    const hasVoted = userVotes.has(featureId);
+
+    // Update features
+    setFeatures(
+      features.map((feature) =>
+        feature.id === featureId
+          ? { ...feature, votes: (feature.votes || 0) + (hasVoted ? -1 : 1) }
+          : feature,
+      ),
+    );
+
+    // Update user votes
+    setUserVotes((prev) => {
+      const newVotes = new Set(prev);
+      if (hasVoted) {
+        newVotes.delete(featureId);
+      } else {
+        newVotes.add(featureId);
+      }
+      return newVotes;
+    });
   };
 
   return (
@@ -79,7 +102,11 @@ export default function Home() {
         {/* Feature Cards */}
         <div className="space-y-4">
           {features.map((feature) => (
-            <FeatureCard key={feature.id} feature={feature} />
+            <FeatureCard
+              key={feature.id}
+              feature={feature}
+              handleCountVotes={handleCountVotes}
+            />
           ))}
         </div>
 

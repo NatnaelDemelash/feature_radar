@@ -1,16 +1,27 @@
-export default function FeatureCard({ feature }) {
+export default function FeatureCard({ feature, handleCountVotes, hasVoted }) {
   return (
     <div className="relative bg-white rounded-xl border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all duration-200 overflow-hidden group">
       {/* Accent Border */}
-      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#111] to-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      <div className="absolute left-0 top-0 bottom-0 w-1 bg-linear-to-b from-[#111] to-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
       <div className="p-6">
         <div className="flex items-start gap-4">
           {/* Vote Button */}
           <div className="flex-shrink-0">
-            <button className="flex flex-col items-center px-3 py-2 border border-gray-200 rounded-lg hover:border-[#111] hover:bg-gray-50 transition-colors group/vote">
+            <button
+              className={`flex flex-col items-center px-3 py-2 border rounded-lg transition-colors group/vote ${
+                hasVoted
+                  ? 'border-[#111] bg-[#111] text-white'
+                  : 'border-gray-200 hover:border-[#111] hover:bg-gray-50'
+              }`}
+              onClick={() => handleCountVotes(feature.id)}
+            >
               <svg
-                className="w-5 h-5 text-gray-500 group-hover/vote:text-[#111] transition-colors"
+                className={`w-5 h-5 transition-colors ${
+                  hasVoted
+                    ? 'text-white'
+                    : 'text-gray-500 group-hover/vote:text-[#111]'
+                }`}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -22,7 +33,13 @@ export default function FeatureCard({ feature }) {
                   d="M5 15l7-7 7 7"
                 />
               </svg>
-              <span className="text-sm font-semibold text-gray-900 mt-1 group-hover/vote:text-[#111] transition-colors">
+              <span
+                className={`text-sm font-semibold mt-1 transition-colors ${
+                  hasVoted
+                    ? 'text-white'
+                    : 'text-gray-900 group-hover/vote:text-[#111]'
+                }`}
+              >
                 {feature.votes || 0}
               </span>
             </button>
@@ -37,11 +54,11 @@ export default function FeatureCard({ feature }) {
               {feature.priority && (
                 <span
                   className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                    feature.priority === "high"
-                      ? "bg-red-50 text-red-700 border border-red-200"
-                      : feature.priority === "medium"
-                        ? "bg-yellow-50 text-yellow-700 border border-yellow-200"
-                        : "bg-gray-100 text-gray-700 border border-gray-300"
+                    feature.priority === 'high'
+                      ? 'bg-red-50 text-red-700 border border-red-200'
+                      : feature.priority === 'medium'
+                        ? 'bg-yellow-50 text-yellow-700 border border-yellow-200'
+                        : 'bg-gray-100 text-gray-700 border border-gray-300'
                   }`}
                 >
                   {feature.priority}
@@ -87,7 +104,7 @@ export default function FeatureCard({ feature }) {
                   </svg>
                 </button>
                 <span className="text-xs text-gray-400 hidden sm:inline">
-                  {feature.createdAt || "Recently added"}
+                  {feature.createdAt || 'Recently added'}
                 </span>
               </div>
             </div>
